@@ -9,7 +9,7 @@ internal sealed class ControlForm : Form
     private readonly OverlayForm _overlay;
     private readonly BreathingSettings _settings;
     private readonly BreathingEngine _engine;
-    private readonly Timer _timer;
+    private readonly System.Windows.Forms.Timer _timer;
 
     private readonly Label _status;
 
@@ -113,7 +113,7 @@ internal sealed class ControlForm : Form
         startButton.Click += (_, _) => Start();
         stopButton.Click += (_, _) => Stop();
 
-        _timer = new Timer { Interval = 1000 };
+        _timer = new System.Windows.Forms.Timer { Interval = 1000 };
         _timer.Tick += (_, _) =>
         {
             _engine.Tick();

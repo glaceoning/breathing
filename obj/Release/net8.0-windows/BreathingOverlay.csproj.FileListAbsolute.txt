@@ -1,0 +1,15 @@
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\bin\Release\net8.0-windows\BreathingOverlay.exe
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\bin\Release\net8.0-windows\BreathingOverlay.deps.json
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\bin\Release\net8.0-windows\BreathingOverlay.runtimeconfig.json
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\bin\Release\net8.0-windows\BreathingOverlay.dll
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\bin\Release\net8.0-windows\BreathingOverlay.pdb
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.AssemblyInfoInputs.cache
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.AssemblyInfo.cs
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.csproj.CoreCompileInputs.cache
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.sourcelink.json
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.dll
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\refint\BreathingOverlay.dll
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.pdb
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\BreathingOverlay.genruntimeconfig.cache
+C:\Users\jorda\OneDrive\Documents\GitHub\breathing\obj\Release\net8.0-windows\ref\BreathingOverlay.dll

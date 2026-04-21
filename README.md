@@ -1,19 +1,23 @@
 # Breathing Overlay (Windows)
 
-A tiny WinForms app that shows a movable, resizable, always-on-top breathing shape overlay (rectangle or locked square) and cycles colors by breathing phase.
+A lightweight WinForms utility that shows a movable, resizable, borderless breathing overlay only while the session is running.
 
-## Features
+## Behavior
 
-- Always-on-top overlay window you can drag/resize anywhere on screen.
-- Rectangle by default, with an option to lock to a square.
-- Four configurable breathing phases:
-  - Inhale (default blue: `0,0,255`)
-  - Hold after inhale (default red: `255,0,0`)
-  - Exhale (default green: `0,255,0`)
-  - Hold after exhale (default white: `255,255,255`)
-- Optional hold-in and hold-out phases (toggle each on/off).
-- Per-phase duration in seconds (`0-300`).
-- Lightweight (single timer tick per second, no elevated privileges, no input hooks).
+- Overlay is **frameless** and **always-on-top**.
+- Overlay opens only when you press **Start** and closes on **Stop**.
+- Drag from inside the overlay to move it.
+- Resize from window edges/corners.
+- Rectangle by default, with optional square lock.
+
+## Breathing visualization
+
+- **Inhale:** white background, blue (default) bar fills left → right in second-based steps.
+- **Exhale:** white background, green (default) bar empties left → right in second-based steps.
+- **Hold in (full lungs):** black background, red (default) fills from center outward in mirrored pairs.
+- **Hold out (empty lungs):** black background, white (default) fills from center outward in mirrored pairs.
+
+Per-phase durations are configurable in seconds, and hold phases can be turned on/off independently.
 
 ## Build and run
 
@@ -25,4 +29,4 @@ Run the built `.exe` from `bin/Release/net8.0-windows/` on Windows.
 
 ## Notes about game anti-cheat systems
 
-This tool is a normal desktop overlay utility and is not designed for cheating. However, no software can *guarantee* how third-party anti-cheat systems will classify or react to running processes. If you are concerned, check the game's policy and run this only when you are comfortable with that risk.
+This tool is a normal desktop overlay utility and is not designed for cheating. No software can guarantee how third-party anti-cheat systems classify or react to running processes.

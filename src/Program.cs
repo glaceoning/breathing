@@ -9,11 +9,6 @@ internal static class Program
     static void Main()
     {
         ApplicationConfiguration.Initialize();
-
-        var overlay = new OverlayForm();
-        var control = new ControlForm(overlay);
-
-        overlay.Show();
-        Application.Run(control);
+        Application.Run(new ControlForm());
     }
 }

@@ -19,7 +19,7 @@ internal sealed class BreathingEngine
     private readonly BreathingSettings _settings;
     private readonly List<PhaseStep> _steps = new();
     private int _stepIndex;
-    private int _remainingSeconds;
+    private int _elapsedSeconds;
 
     public BreathingEngine(BreathingSettings settings)
     {
@@ -31,7 +31,7 @@ internal sealed class BreathingEngine
         ? new PhaseStep(BreathingPhase.Inhale, 1, _settings.InhaleColor)
         : _steps[_stepIndex];
 
-    public int RemainingSeconds => _remainingSeconds;
+    public int ElapsedInStep => _elapsedSeconds;
 
     public void Rebuild()
     {
@@ -55,24 +55,24 @@ internal sealed class BreathingEngine
         }
 
         _stepIndex = 0;
-        _remainingSeconds = _steps[0].Seconds;
+        _elapsedSeconds = 0;
     }
 
-    public void Tick()
+    public void AdvanceOneSecond()
     {
         if (_steps.Count == 0)
         {
             return;
         }
 
-        _remainingSeconds--;
-        if (_remainingSeconds > 0)
-        {
-            return;
-        }
+        var current = _steps[_stepIndex];
+        _elapsedSeconds++;
 
-        _stepIndex = (_stepIndex + 1) % _steps.Count;
-        _remainingSeconds = _steps[_stepIndex].Seconds;
+        if (_elapsedSeconds >= current.Seconds)
+        {
+            _stepIndex = (_stepIndex + 1) % _steps.Count;
+            _elapsedSeconds = 0;
+        }
     }
 
     private void AddIfValid(BreathingPhase phase, int seconds, Color color)

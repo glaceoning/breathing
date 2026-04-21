@@ -6,7 +6,7 @@ namespace BreathingOverlay;
 
 internal sealed class ControlForm : Form
 {
-    private readonly OverlayForm _overlay;
+    private OverlayForm? _overlay;
     private readonly BreathingSettings _settings;
     private readonly BreathingEngine _engine;
     private readonly System.Windows.Forms.Timer _timer;
@@ -27,9 +27,8 @@ internal sealed class ControlForm : Form
     private readonly Button _exhaleColor;
     private readonly Button _holdOutColor;
 
-    public ControlForm(OverlayForm overlay)
+    public ControlForm()
     {
-        _overlay = overlay;
         _settings = new BreathingSettings();
         _engine = new BreathingEngine(_settings);
 
@@ -103,7 +102,7 @@ internal sealed class ControlForm : Form
 
         var tip = new Label
         {
-            Text = "Move/resize the overlay window directly. It always stays on top.",
+            Text = "Overlay opens on Start and closes on Stop. Drag anywhere inside it to move.",
             AutoSize = true,
             Dock = DockStyle.Fill
         };
@@ -116,23 +115,32 @@ internal sealed class ControlForm : Form
         _timer = new System.Windows.Forms.Timer { Interval = 1000 };
         _timer.Tick += (_, _) =>
         {
-            _engine.Tick();
+            _engine.AdvanceOneSecond();
             ApplyPhase();
         };
 
         FormClosing += (_, _) =>
         {
             _timer.Stop();
-            _overlay.Close();
+            _overlay?.Close();
         };
 
         ApplySettings();
-        ApplyPhase();
     }
 
     private void Start()
     {
         ApplySettings();
+
+        _overlay ??= new OverlayForm();
+        _overlay.SetSquareLock(_settings.LockSquare);
+        _overlay.UpdateState(BreathingPhase.Inhale, Math.Max(1, _settings.InhaleSeconds), 0, _settings.InhaleColor);
+
+        if (!_overlay.Visible)
+        {
+            _overlay.Show();
+        }
+
         _timer.Start();
         ApplyPhase();
     }
@@ -141,6 +149,13 @@ internal sealed class ControlForm : Form
     {
         _timer.Stop();
         _status.Text = "Stopped";
+
+        if (_overlay is not null)
+        {
+            _overlay.Close();
+            _overlay.Dispose();
+            _overlay = null;
+        }
     }
 
     private void ApplySettings()
@@ -159,16 +174,21 @@ internal sealed class ControlForm : Form
         _settings.ExhaleColor = _exhaleColor.BackColor;
         _settings.HoldOutColor = _holdOutColor.BackColor;
 
-        _overlay.SetSquareLock(_settings.LockSquare);
+        _overlay?.SetSquareLock(_settings.LockSquare);
         _engine.Rebuild();
     }
 
     private void ApplyPhase()
     {
+        if (_overlay is null)
+        {
+            return;
+        }
+
         var step = _engine.CurrentStep;
-        _overlay.SetColor(step.Color);
+        _overlay.UpdateState(step.Phase, step.Seconds, _engine.ElapsedInStep, step.Color);
         _overlay.TopMost = true;
-        _status.Text = $"{step.Phase} ({_engine.RemainingSeconds}s)";
+        _status.Text = $"{step.Phase} ({_engine.ElapsedInStep}/{step.Seconds}s)";
     }
 
     private static NumericUpDown CreateSecondsNumeric(int value)
